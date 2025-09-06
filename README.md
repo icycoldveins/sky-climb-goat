@@ -2,7 +2,7 @@
 
 A fun, vertical jumping game inspired by Doodle Jump where you help a goat climb as high as possible! Built with vanilla JavaScript and HTML5 Canvas.
 
-![Game Screenshot](screenshot.png)
+![Game Screenshot](image.png)
 
 ## 🎮 Play Now
 
