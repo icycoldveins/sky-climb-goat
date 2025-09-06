@@ -105,9 +105,3 @@ This project is open source and available for anyone to use and modify.
 ## 🙏 Credits
 
 Inspired by the mobile game Go Go Goat and classic vertical jumping games.
-
----
-
-Made with ❤️ using vanilla JavaScript and HTML5 Canvas
-
-**Enjoy climbing! 🐐🚀**
