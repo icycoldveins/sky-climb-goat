@@ -1,6 +1,6 @@
 # 🐐 Sky Climb Goat
 
-A fun, vertical jumping game inspired by Doodle Jump where you help a goat climb as high as possible! Built with vanilla JavaScript and HTML5 Canvas.
+A fun, vertical jumping game inspired by Go Go Goat where you help a goat climb as high as possible! Built with vanilla JavaScript and HTML5 Canvas.
 
 ![Game Screenshot](image.png)
 
@@ -104,7 +104,7 @@ This project is open source and available for anyone to use and modify.
 
 ## 🙏 Credits
 
-Inspired by classic vertical jumping games like Doodle Jump and Go Go Goat.
+Inspired by the mobile game Go Go Goat and classic vertical jumping games.
 
 ---
 
