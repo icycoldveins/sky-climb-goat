@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sky Climb Goat - Jump Higher!</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: 'Fredoka', cursive;
+            overflow: hidden;
+        }
+        
+        #gameContainer {
+            position: relative;
+            box-shadow: 0 25px 80px rgba(0, 0, 0, 0.4);
+            border-radius: 20px;
+            overflow: hidden;
+            border: 3px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        canvas {
+            display: block;
+            background: linear-gradient(to bottom, #87CEEB 0%, #E0F6FF 50%, #FFE4E1 100%);
+            cursor: pointer;
+        }
+        
+        #startScreen, #gameOverScreen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(to bottom, 
+                rgba(135, 206, 235, 0.95) 0%, 
+                rgba(224, 246, 255, 0.95) 50%, 
+                rgba(255, 228, 225, 0.95) 100%);
+            color: #333;
+            z-index: 10;
+            backdrop-filter: blur(10px);
+        }
+        
+        #startScreen {
+            display: flex;
+        }
+        
+        #gameOverScreen {
+            display: none;
+        }
+        
+        h1 {
+            font-size: 4em;
+            margin-bottom: 30px;
+            color: #fff;
+            text-shadow: 3px 3px 0px #764ba2,
+                        6px 6px 0px rgba(118, 75, 162, 0.3),
+                        6px 6px 20px rgba(0, 0, 0, 0.2);
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
+        
+        .goat-title {
+            display: inline-block;
+            animation: bounce 2s ease-in-out infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        .button {
+            padding: 18px 50px;
+            font-size: 1.3em;
+            background: linear-gradient(135deg, #FF6B6B 0%, #FF8E53 100%);
+            color: white;
+            border: none;
+            border-radius: 60px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 15px;
+            box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .button:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 10px 30px rgba(255, 107, 107, 0.5);
+        }
+        
+        .button:active {
+            transform: translateY(-1px);
+        }
+        
+        #score {
+            position: absolute;
+            top: 25px;
+            left: 25px;
+            font-size: 1.8em;
+            color: #fff;
+            font-weight: 700;
+            z-index: 5;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            background: rgba(118, 75, 162, 0.8);
+            padding: 8px 20px;
+            border-radius: 25px;
+        }
+        
+        #highScore {
+            position: absolute;
+            top: 25px;
+            right: 25px;
+            font-size: 1.4em;
+            color: #fff;
+            font-weight: 600;
+            z-index: 5;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            background: rgba(255, 107, 107, 0.8);
+            padding: 8px 20px;
+            border-radius: 25px;
+        }
+        
+        .instructions {
+            text-align: center;
+            margin: 20px 40px;
+            font-size: 1.3em;
+            line-height: 1.8;
+            color: #555;
+            font-weight: 400;
+            background: rgba(255, 255, 255, 0.7);
+            padding: 25px;
+            border-radius: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .instructions p {
+            margin: 10px 0;
+        }
+        
+        #controls {
+            position: absolute;
+            bottom: 25px;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            color: rgba(255, 255, 255, 0.8);
+            z-index: 5;
+            font-size: 1.1em;
+            font-weight: 500;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 8px 25px;
+            border-radius: 20px;
+            backdrop-filter: blur(5px);
+        }
+        
+        #gameOverScreen h1 {
+            color: #FF6B6B;
+            text-shadow: 3px 3px 0px #FF8E53,
+                        6px 6px 0px rgba(255, 142, 83, 0.3),
+                        6px 6px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        #gameOverScreen p {
+            font-size: 2em;
+            color: #555;
+            margin: 20px 0;
+            font-weight: 600;
+        }
+        
+        #finalScore {
+            color: #764ba2;
+            font-size: 1.5em;
+        }
+    </style>
+</head>
+<body>
+    <div id="gameContainer">
+        <canvas id="gameCanvas"></canvas>
+        
+        <div id="score">Score: 0</div>
+        <div id="highScore">Best: 0</div>
+        
+        <div id="startScreen">
+            <h1><span class="goat-title">🐐 Sky Climb Goat 🐐</span></h1>
+            <div class="instructions">
+                <p>Help the goat jump as high as possible!</p>
+                <p>Use ← → arrows or A/D to move</p>
+                <p>Avoid enemies and collect power-ups!</p>
+            </div>
+            <button class="button" onclick="startGame()">Start Game</button>
+        </div>
+        
+        <div id="gameOverScreen">
+            <h1>Game Over!</h1>
+            <p style="font-size: 1.5em; margin: 20px;">Your Score: <span id="finalScore">0</span></p>
+            <button class="button" onclick="restartGame()">Play Again</button>
+        </div>
+        
+        <div id="controls">
+            Use ← → or A/D to move
+        </div>
+    </div>
+    
+    <script src="game.js"></script>
+</body>
+</html>

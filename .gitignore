@@ -1,0 +1,25 @@
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Editor directories and files
+.idea
+.vscode
+*.swp
+*.swo
+*~
+
+# Playwright test artifacts
+.playwright-mcp/
+
+# Node modules (if added later)
+node_modules/
+
+# Build outputs (if added later)
+dist/
+build/

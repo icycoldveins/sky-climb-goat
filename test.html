@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Page</title>
+</head>
+<body>
+    <h1>Testing JavaScript Console</h1>
+    <p>Open browser console (F12) to see if there are any errors.</p>
+    <canvas id="testCanvas" width="400" height="300" style="border: 1px solid black;"></canvas>
+    
+    <script>
+        console.log("Test script loaded successfully");
+        const canvas = document.getElementById('testCanvas');
+        const ctx = canvas.getContext('2d');
+        ctx.fillStyle = 'green';
+        ctx.fillRect(50, 50, 100, 100);
+        console.log("Canvas drawing test successful");
+    </script>
+</body>
+</html>
